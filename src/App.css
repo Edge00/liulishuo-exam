@@ -1,0 +1,22 @@
+.container {
+  margin: 0 auto;
+  width: 300px;
+}
+
+.validate-form input::-webkit-outer-spin-button,
+.validate-form input::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;
+  margin: 0;
+}
+
+.validate-form input {
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 5px;
+  outline: none;
+  box-sizing: border-box;
+  height: 28px;
+  line-height: 26px;
+  border: 1px solid #d9d9d9;
+  border-radius: 1px;
+}
