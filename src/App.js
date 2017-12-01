@@ -10,7 +10,27 @@ class App extends Component {
       phoneNumber: '',
       buttonTxt: '请输入有效的手机号码',
       isButtonClickAble: false,
+      interval: 40,
     }
+  }
+
+  componentDidMount() {
+    const { interval } = this.state;
+    let lastValidate = localStorage.getItem('lastValidate');
+    const phoneNumber = localStorage.getItem('phoneNumber');
+    if (!lastValidate) return;
+    const time = ((Date.now() - Number(lastValidate)) / 1000).toFixed(0);
+    if (time < interval) {
+      this.setState({
+        isButtonClickAble: false,
+        phoneNumber,
+      });
+      this.countDown(interval - time);
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.countTimer) clearInterval(this.countTimer);
   }
 
   // 实时验证输入的手机号，格式不正确不可以点击发送按钮
@@ -41,7 +61,9 @@ class App extends Component {
     if (code === 0) {
       console.log(data);
       this.setState({ isButtonClickAble: false });
-      this.countDown();
+      this.countDown(this.state.interval);
+      localStorage.setItem('lastValidate', Date.now());
+      localStorage.setItem('phoneNumber', this.state.phoneNumber);
     } else {
       alert(info);
       this.setState({ buttonTxt: '请输入有效的手机号码' });
@@ -49,12 +71,11 @@ class App extends Component {
   }
 
   // 按钮倒计时
-  countDown = () => {
-    let count = 5;
-    const countTimer = setInterval(() => {
+  countDown = (count) => {
+    this.countTimer = setInterval(() => {
       count = count - 1;
       if (count <= 0) {
-        clearInterval(countTimer);
+        clearInterval(this.countTimer);
         this.setState({
           buttonTxt: '发送验证码',
           isButtonClickAble: true,
@@ -68,20 +89,24 @@ class App extends Component {
   // 模拟服务端验证
   validate = (phoneNumber) => {
     return new Promise((resolve) => {
-      setTimeout(() => {
+      const delay = setTimeout(() => {
         if (Number(phoneNumber) === 17612771915) {
+          // 请求成功
+          clearTimeout(delay);
           resolve({
             code: 0,
             data: 'userId',
-            info: 'success'
+            info: 'success',
           });
         }
+        // 请求失败
+        clearTimeout(delay);
         resolve({
           code: 1,
           data: '',
-          info: 'Phone number not found in database.'
+          info: 'Phone number not found in database.',
         });
-      }, 1500);
+      }, 500);
     })
   }
 
