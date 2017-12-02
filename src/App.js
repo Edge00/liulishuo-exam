@@ -24,6 +24,7 @@ class App extends Component {
       this.setState({
         isButtonClickAble: false,
         phoneNumber,
+        buttonTxt: `${interval - time}s 后重新发送`,
       });
       this.countDown(interval - time);
     }
@@ -119,8 +120,8 @@ class App extends Component {
     } = this.state;
 
     return (
-      <div className="container">
-        <h3>身份验证：</h3>
+      <div>
+        <h3>业务场景：</h3>
         <div className="validate-form">
           <input
             type="number"

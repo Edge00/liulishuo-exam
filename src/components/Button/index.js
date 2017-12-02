@@ -1,26 +1,21 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './index.css'
 
-export default class Button extends Component {
-  render() {
-    const classNames = this.props.className || '';
-    let props = {};
+const Button = (props) => {
+  const classNames = props.className || '';
+  let componrntProps = {};
 
-    for (var key in this.props) {
-      if (key !== 'children') {
-        props[key] = this.props[key];
-      }
+  for (let key in props) {
+    if (key !== 'children') {
+      componrntProps[key] = props[key];
     }
-
-    return (
-      <button
-        {...props}
-        className={`component-button ${classNames}`}
-      >
-        {this.props.children}
-      </button>
-    );
-
   }
 
+  return (
+    <button {...componrntProps} className={`component-button ${classNames}`}>
+      {props.children}
+    </button>
+  );
 }
+
+export default Button;

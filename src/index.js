@@ -21,11 +21,9 @@ class MountTest extends Component {
   render() {
     const { isAppMount } = this.state;
     return (
-      <div>
-        <Button
-          onClick={this.toggleMount}
-          style={{margin: 20}}
-        >
+      <div className="app-container">
+        <h3>加载、销毁组件测试</h3>
+        <Button onClick={this.toggleMount}>
           { isAppMount ? 'Unmount' : 'Mount' }
         </Button>
         { isAppMount && <App /> }

@@ -4,3 +4,8 @@ body {
   font-family: sans-serif;
   background: rgb(250,250,250);
 }
+
+.app-container {
+  margin: 0 auto;
+  width: 300px;
+}
