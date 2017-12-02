@@ -10,7 +10,7 @@ class App extends Component {
       phoneNumber: '',
       buttonTxt: '请输入有效的手机号码',
       isButtonClickAble: false,
-      interval: 40,
+      interval: 20,
     }
   }
 
@@ -82,7 +82,10 @@ class App extends Component {
           isButtonClickAble: true,
         });
       } else {
-        this.setState({ buttonTxt: `${count}s 后重新发送` });
+        this.setState({
+          isButtonClickAble: false,
+          buttonTxt: `${count}s 后重新发送`,
+        });
       }
     }, 1000);
   }
