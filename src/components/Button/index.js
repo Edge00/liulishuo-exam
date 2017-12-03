@@ -3,16 +3,16 @@ import './index.css'
 
 const Button = (props) => {
   const classNames = props.className || '';
-  let componrntProps = {};
+  let componentProps = {};
 
   for (let key in props) {
     if (key !== 'children') {
-      componrntProps[key] = props[key];
+      componentProps[key] = props[key];
     }
   }
 
   return (
-    <button {...componrntProps} className={`component-button ${classNames}`}>
+    <button {...componentProps} className={`component-button ${classNames}`}>
       {props.children}
     </button>
   );
